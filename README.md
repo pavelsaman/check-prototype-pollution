@@ -8,7 +8,8 @@
 $ npm init -y
 $ npm install json5 lodash
 ```
-1. run `./find-pollution.sh` with those libraries as arguments:
+
+2. run `./find-pollution.sh` with those libraries as arguments:
 
 ```sh
 $ ./find-pollution.sh [library_name...]
