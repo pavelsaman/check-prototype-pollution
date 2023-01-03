@@ -5,38 +5,38 @@ const args = process.argv;
 const stringWithPrototypePollution = '{"__proto__":{"test":123}}';
 const functionPatterns = [
   {
-    fnct: function (totest, badString) {
-      return totest(JSON.parse(badString));
+    fnct: function (totest) {
+      return totest(JSON.parse(stringWithPrototypePollution));
     },
     sig: 'function (badJson)',
   },
   {
-    fnct: function (totest, badString) {
-      return totest(JSON.parse(badString), {});
+    fnct: function (totest) {
+      return totest(JSON.parse(stringWithPrototypePollution), {});
     },
     sig: 'function (badJson, {})',
   },
   {
-    fnct: function (totest, badString) {
-      return totest({}, JSON.parse(badString));
+    fnct: function (totest) {
+      return totest({}, JSON.parse(stringWithPrototypePollution));
     },
     sig: 'function ({}, badJson)',
   },
   {
-    fnct: function (totest, badString) {
-      return totest(JSON.parse(badString), JSON.parse(badString));
+    fnct: function (totest) {
+      return totest(JSON.parse(stringWithPrototypePollution), JSON.parse(stringWithPrototypePollution));
     },
     sig: 'function (badJson, badJson)',
   },
   {
-    fnct: function (totest, badString) {
-      return totest({}, {}, JSON.parse(badString));
+    fnct: function (totest) {
+      return totest({}, {}, JSON.parse(stringWithPrototypePollution));
     },
     sig: 'function ({}, {}, badJson)',
   },
   {
-    fnct: function (totest, badString) {
-      return totest({}, {}, {}, JSON.parse(badString));
+    fnct: function (totest) {
+      return totest({}, {}, {}, JSON.parse(stringWithPrototypePollution));
     },
     sig: 'function ({}, {}, {}, badJson)',
   },
@@ -77,8 +77,8 @@ const functionPatterns = [
     sig: 'function (badString, badString, value)',
   },
   {
-    fnct: function (totest, badString) {
-      return totest(badString);
+    fnct: function (totest) {
+      return totest(stringWithPrototypePollution);
     },
     sig: 'function (badString)',
   },
@@ -118,11 +118,12 @@ function testFunctions(fnct, sig, name, totest) {
   let parsedObject = null;
   
   try {
-    parsedObject = fnct(totest, stringWithPrototypePollution);
+    parsedObject = fnct(totest);
   } catch (e) {}
 
   if (parsedObject && parsedObject.test) {
     console.log(`func: ${name}, sig: ${sig} is vulnerable!`);
+    delete parsedObject.__proto__.test;
   }
 }
 
