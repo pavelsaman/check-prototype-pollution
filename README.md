@@ -11,5 +11,5 @@ $ npm install json5 lodash
 1. run `./find-pollution.sh` with those libraries as arguments:
 
 ```sh
-$ ./find-pollution.sh [LIBRARY_NAME...]
+$ ./find-pollution.sh [library_name...]
 ```
