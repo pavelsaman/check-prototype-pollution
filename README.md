@@ -14,3 +14,9 @@ $ npm install json5 lodash
 ```sh
 $ ./find-pollution.sh [library_name...]
 ```
+
+## Notes
+
+Based on [prototype-pollution-nsec18](https://github.com/HoLyVieR/prototype-pollution-nsec18) repo.
+
+This check is not 100 % correct, but it's a good enough heuristic.
